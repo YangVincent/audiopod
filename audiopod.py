@@ -49,9 +49,18 @@ def generate_podcast_xml(base, books):
     # Generate rss
     p.rss_file('skeleton/rss.xml', minimize=True)
 
+def get_books():
+    books = []
+    for entry in os.scandir('files/'):
+        if entry.is_file():
+            print(entry.path)
+            books.append(entry.path[6:])
+    return(books)
+
+
 if __name__ == '__main__':
     if len(sys.argv) > 1:
-        books = ['Anthem_Rand.m4a']
+        books = get_books()
         generate_podcast_xml(sys.argv[1], books)
     else:
         print("Usage: python3.7 create_podcast.py ngrok_public_route")
